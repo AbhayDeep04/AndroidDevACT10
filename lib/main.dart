@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-// Add form builder and validators:
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Signup Page',
+      title: 'Signup Navigation Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const SignUpPage(),
     );
@@ -28,7 +25,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  // A GlobalKey to uniquely identify the FormBuilder widget and allow validation
+  // A GlobalKey to uniquely identify the FormBuilder and allow validation
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -41,37 +38,35 @@ class _SignUpPageState extends State<SignUpPage> {
         padding: const EdgeInsets.all(16),
         child: FormBuilder(
           key: _formKey,
-          // Optional: Enable autovalidation behavior
-          autovalidateMode: AutovalidateMode.disabled,
           child: Column(
             children: [
-              // FIRST NAME
+              // First Name
               FormBuilderTextField(
                 name: 'first_name',
                 decoration: const InputDecoration(
                   labelText: 'First Name',
                   border: OutlineInputBorder(),
                 ),
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(errorText: 'First name is required'),
-                ]),
+                validator: FormBuilderValidators.required(
+                  errorText: 'First name is required',
+                ),
               ),
               const SizedBox(height: 16),
 
-              // LAST NAME
+              // Last Name
               FormBuilderTextField(
                 name: 'last_name',
                 decoration: const InputDecoration(
                   labelText: 'Last Name',
                   border: OutlineInputBorder(),
                 ),
-                validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(errorText: 'Last name is required'),
-                ]),
+                validator: FormBuilderValidators.required(
+                  errorText: 'Last name is required',
+                ),
               ),
               const SizedBox(height: 16),
 
-              // EMAIL
+              // Email
               FormBuilderTextField(
                 name: 'email',
                 decoration: const InputDecoration(
@@ -79,14 +74,16 @@ class _SignUpPageState extends State<SignUpPage> {
                   border: OutlineInputBorder(),
                 ),
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(errorText: 'Email is required'),
-                  FormBuilderValidators.email(errorText: 'Enter a valid email address'),
+                  FormBuilderValidators.required(
+                      errorText: 'Email is required'),
+                  FormBuilderValidators.email(
+                      errorText: 'Enter a valid email address'),
                 ]),
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
 
-              // CONTACT NUMBER
+              // Contact Number
               FormBuilderTextField(
                 name: 'contact_no',
                 decoration: const InputDecoration(
@@ -94,7 +91,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   border: OutlineInputBorder(),
                 ),
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(errorText: 'Contact number is required'),
+                  FormBuilderValidators.required(
+                      errorText: 'Contact number is required'),
                   FormBuilderValidators.numeric(errorText: 'Must be digits only'),
                   FormBuilderValidators.minLength(7, errorText: 'Too short'),
                 ]),
@@ -102,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 16),
 
-              // DATE OF BIRTH with calendar widget
+              // Date of Birth
               FormBuilderDateTimePicker(
                 name: 'dob',
                 inputType: InputType.date,
@@ -111,14 +109,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   border: OutlineInputBorder(),
                   suffixIcon: Icon(Icons.calendar_today),
                 ),
-                // Example: limit range if needed
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
-                validator: FormBuilderValidators.required(errorText: 'Date of birth is required'),
+                validator: FormBuilderValidators.required(
+                    errorText: 'Date of birth is required'),
               ),
               const SizedBox(height: 16),
 
-              // AADHAR NO
+              // Aadhar No
               FormBuilderTextField(
                 name: 'aadhar_no',
                 decoration: const InputDecoration(
@@ -126,28 +124,33 @@ class _SignUpPageState extends State<SignUpPage> {
                   border: OutlineInputBorder(),
                 ),
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(errorText: 'Aadhar number is required'),
-                  FormBuilderValidators.numeric(errorText: 'Must be digits only'),
-                  FormBuilderValidators.minLength(12, errorText: 'Must be at least 12 digits'),
-                  FormBuilderValidators.maxLength(12, errorText: 'Must be 12 digits'),
+                  FormBuilderValidators.required(
+                      errorText: 'Aadhar number is required'),
+                  FormBuilderValidators.numeric(
+                      errorText: 'Must be digits only'),
+                  FormBuilderValidators.minLength(12,
+                      errorText: 'Must be at least 12 digits'),
+                  FormBuilderValidators.maxLength(12,
+                      errorText: 'Must be 12 digits'),
                 ]),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
 
-              // ADDRESS
+              // Address
               FormBuilderTextField(
                 name: 'address',
                 decoration: const InputDecoration(
                   labelText: 'Address',
                   border: OutlineInputBorder(),
                 ),
-                validator: FormBuilderValidators.required(errorText: 'Address is required'),
+                validator: FormBuilderValidators.required(
+                    errorText: 'Address is required'),
                 maxLines: 2,
               ),
               const SizedBox(height: 16),
 
-              // PASSWORD (if required)
+              // Password
               FormBuilderTextField(
                 name: 'password',
                 decoration: const InputDecoration(
@@ -156,31 +159,35 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 obscureText: true,
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(errorText: 'Password is required'),
-                  FormBuilderValidators.minLength(6, errorText: 'Minimum 6 characters'),
+                  FormBuilderValidators.required(
+                      errorText: 'Password is required'),
+                  FormBuilderValidators.minLength(6,
+                      errorText: 'Minimum 6 characters'),
                 ]),
               ),
               const SizedBox(height: 24),
 
-              // SUBMIT BUTTON
+              // Submit Button
               ElevatedButton(
                 onPressed: () {
-                  // Validate the form and save values
                   if (_formKey.currentState?.saveAndValidate() ?? false) {
                     // If valid, retrieve form data
                     final formData = _formKey.currentState?.value;
-                    // For demonstration, just show a snackbar
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Signup Successful! Data: $formData'),
+                    // Navigate to ConfirmationPage, passing formData
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmationPage(
+                          formData: formData,
+                        ),
                       ),
                     );
-                    // Navigate to another page or do further processing here
                   } else {
-                    // If invalid, show a snackbar or highlight errors
+                    // Show error if validation fails
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Validation failed. Please check your inputs.'),
+                        content:
+                            Text('Validation failed. Please check your inputs.'),
                       ),
                     );
                   }
@@ -189,6 +196,42 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ConfirmationPage extends StatelessWidget {
+  final Map<String, dynamic>? formData;
+  const ConfirmationPage({super.key, this.formData});
+
+  @override
+  Widget build(BuildContext context) {
+    // Retrieve first_name from formData for display
+    final firstName = formData?['first_name'] ?? 'No Name';
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Confirmation'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Signup Successful, $firstName!',
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Pop back to the SignUpPage (or wherever you came from)
+                Navigator.pop(context);
+              },
+              child: const Text('Go Back'),
+            ),
+          ],
         ),
       ),
     );
